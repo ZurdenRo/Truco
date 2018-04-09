@@ -1,5 +1,6 @@
 package trabajo.juego.truco;
 
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,13 +28,27 @@ public class UsuarioPrincipal extends Jugadores{
 	 *la carta a jugar y la deposita en el tablero. 
 	 */
 	@Override
-	public Carta cartaJugar() {
-		@SuppressWarnings("resource")
-		Scanner ingresarNum  = new Scanner(System.in);
-		int num = ingresarNum.nextInt();	
-		return this.getCartasUserDefault().get(num);
-	}
-	
+	public Carta cartaJugar () {
+			return this.getCartasUserDefault().get(comprobarNumero());
+		}
+
+	public Integer comprobarNumero () throws CartaIncorrecta{	
+			@SuppressWarnings("resource")
+			Scanner ingresarNum  = new Scanner(System.in);
+			Integer num ;	
+			try{
+				num  = ingresarNum.nextInt();
+			}catch(Exception e){	
+				throw new CartaIncorrecta("Value Null, please press value correct");			
+			}
+			if(num > 0 && num < 4){	
+				return num - 1;
+			}
+			else{	
+				throw new CartaIncorrecta("Number invalid in hands player");
+			}
+					
+	}	
 	@Override
 	public void mostrarMano() {
 		for (int i = 0 ; i < this.getCartasUserDefault().size() ; i ++){

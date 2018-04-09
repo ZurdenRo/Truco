@@ -7,9 +7,11 @@ public class Tablero {
 	UsuarioPrincipal user;
 	UsuarioMaquina userMaq;
 	Mazo m1;
-	Boolean envido;
-	Boolean truco;
-	Boolean reTruco;
+	private Boolean envido;
+	private Boolean truco;
+	Boolean turnos;
+
+	private static final Integer numParInicia = 1;
 	
 	private ArrayList<Carta> cartaTablero;
 	
@@ -25,21 +27,25 @@ public class Tablero {
 	public void setCartaTablero(ArrayList<Carta> cartaTablero) {
 		this.cartaTablero = cartaTablero;
 	}
+	
 	/*
 	 * El jugador depositar la carta en este metodo y el mismo metodo agarra la cartas del jugador 
 	 * para luego calular que carta es mas fuerte
 	 */
 	
 	public void seleccionCartas(UsuarioPrincipal user){
-		this.getCartaTablero().add(user.cartaJugar());
+		try{
+			this.getCartaTablero().add(user.cartaJugar());
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
 	}
-	
 	public void seleccionCartasMachine(UsuarioMaquina userMaq){
 		this.getCartaTablero().add(userMaq.cartaJugar());
 	}
 	/*
 	 * el metodo de abajo es un borrador, 
-	 * simplente es para ver como funciona el selector de cartas.
+	 * simplente es para ver como funciona el selector de cartas y cual decide que gana.
 	 */
 	public void evaluacionCartas(){
 		if(this.getCartaTablero().get(0).getNumero() > this.getCartaTablero().get(1).getNumero()){
@@ -51,6 +57,11 @@ public class Tablero {
 			}
 		}
 	}
+	
+	public void controladorTurnos(){
+		
+	}
+	
 	public void mostrarCartasTablero(){
 		for (int i = 0 ; i < this.getCartaTablero().size() ; i++){
 			System.out.println(this.getCartaTablero().get(i));
